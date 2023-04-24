@@ -44,6 +44,8 @@ jobs:
       - name: Upload Coverage
         if: ${{ matrix.platform == 'ubuntu-latest' }}
         uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Generate Go Report Card
         if: ${{ matrix.platform == 'ubuntu-latest' }}
