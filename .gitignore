@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: 2023 Iván Szkiba
+#
+# SPDX-License-Identifier: Apache-2.0
+
+bin
+dist
+node_modules
+yarn.lock
+coverage.txt
+k6
+
+# editor directories and files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
