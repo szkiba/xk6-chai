@@ -1,6 +1,11 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/szkiba/xk6-chai)](https://goreportcard.com/report/github.com/szkiba/xk6-chai)
+[![GitHub Actions](https://github.com/szkiba/xk6-chai/workflows/Test/badge.svg)](https://github.com/szkiba/xk6-chai/actions?query=workflow%3ATest+branch%3Amaster)
+
 # xk6-chai
 
 A [k6](https://go.k6.io/k6) extension that embeds [Chai.js](https://www.chaijs.com/) (actually [k6chaijs](https://k6.io/docs/javascript-api/jslib/k6chaijs/) 4.3.4.3) into the k6 binary.
+
+Since the embedded Chai.js is compiled only once during a k6 run, the use of the extension can significantly speed up the test launch in the case of a large number of virtual users, especially in the case of extended compatibility mode.
 
 To use the extension, simply change the k6chaijs import path to `k6/x/chai`. This way, the test will not have runtime external JavaScript dependencies.
 
