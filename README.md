@@ -1,5 +1,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/szkiba/xk6-chai)](https://goreportcard.com/report/github.com/szkiba/xk6-chai)
 [![GitHub Actions](https://github.com/szkiba/xk6-chai/workflows/Test/badge.svg)](https://github.com/szkiba/xk6-chai/actions?query=workflow%3ATest+branch%3Amaster)
+[![codecov](https://codecov.io/gh/szkiba/xk6-chai/branch/master/graph/badge.svg?token=D43BZDXASS)](https://codecov.io/gh/szkiba/xk6-chai)
+
 
 # xk6-chai
 
