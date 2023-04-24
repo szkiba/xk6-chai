@@ -81,13 +81,13 @@ You can also use pre-built k6 image within a Docker container. In order to do th
 **Linux**
 
 ```plain
-docker run -v $(pwd):/scripts -it --rm ghcr.io/szkiba/xk6-chai:latest run --out=dashboard /scripts/script.js
+docker run -v $(pwd):/scripts -it --rm ghcr.io/szkiba/xk6-chai:latest run /scripts/script.js
 ```
 
 **Windows**
 
 ```plain
-docker run -v %cd%:/scripts -it --rm ghcr.io/szkiba/xk6-chai:latest run --out=dashboard /scripts/script.js
+docker run -v %cd%:/scripts -it --rm ghcr.io/szkiba/xk6-chai:latest run /scripts/script.js
 ```
 
 ## Example scripts
