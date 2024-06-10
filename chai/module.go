@@ -8,7 +8,7 @@ import (
 	_ "embed"
 	"errors"
 
-	"github.com/dop251/goja"
+	"github.com/grafana/sobek"
 	"github.com/sirupsen/logrus"
 	"go.k6.io/k6/js/compiler"
 	"go.k6.io/k6/js/modules"
@@ -21,7 +21,7 @@ const filename = "k6chaijs.min.js"
 var content string
 
 type RootModule struct {
-	program *goja.Program
+	program *sobek.Program
 }
 
 func New() modules.Module {
@@ -47,7 +47,7 @@ var (
 	_ modules.Instance = (*Module)(nil)
 )
 
-func mustRequire(prog *goja.Program, runtime *goja.Runtime) *modules.Exports {
+func mustRequire(prog *sobek.Program, runtime *sobek.Runtime) *modules.Exports {
 	exports, err := require(prog, runtime)
 	if err != nil {
 		panic(err)
@@ -56,7 +56,7 @@ func mustRequire(prog *goja.Program, runtime *goja.Runtime) *modules.Exports {
 	return exports
 }
 
-func require(prog *goja.Program, runtime *goja.Runtime) (*modules.Exports, error) {
+func require(prog *sobek.Program, runtime *sobek.Runtime) (*modules.Exports, error) {
 	exports, err := execute(prog, runtime)
 	if err != nil {
 		return nil, err
@@ -73,7 +73,7 @@ func require(prog *goja.Program, runtime *goja.Runtime) (*modules.Exports, error
 	}, nil
 }
 
-func mustCompile(source string, name string) *goja.Program {
+func mustCompile(source string, name string) *sobek.Program {
 	prog, err := compile(source, name)
 	if err != nil {
 		panic(err)
@@ -82,7 +82,7 @@ func mustCompile(source string, name string) *goja.Program {
 	return prog
 }
 
-func compile(source string, name string) (*goja.Program, error) {
+func compile(source string, name string) (*sobek.Program, error) {
 	comp := compiler.New(logrus.StandardLogger())
 
 	comp.Options.CompatibilityMode = lib.CompatibilityModeBase
@@ -96,7 +96,7 @@ func compile(source string, name string) (*goja.Program, error) {
 	return prog, nil
 }
 
-func execute(prog *goja.Program, runtime *goja.Runtime) (*goja.Object, error) {
+func execute(prog *sobek.Program, runtime *sobek.Runtime) (*sobek.Object, error) {
 	module := runtime.NewObject()
 	exports := runtime.NewObject()
 
@@ -109,7 +109,7 @@ func execute(prog *goja.Program, runtime *goja.Runtime) (*goja.Object, error) {
 		return nil, err
 	}
 
-	callable, assertOK := goja.AssertFunction(value)
+	callable, assertOK := sobek.AssertFunction(value)
 	if !assertOK {
 		return nil, errInvalidModule
 	}
@@ -119,7 +119,7 @@ func execute(prog *goja.Program, runtime *goja.Runtime) (*goja.Object, error) {
 		return nil, err
 	}
 
-	exports, assertOK = module.Get("exports").(*goja.Object)
+	exports, assertOK = module.Get("exports").(*sobek.Object)
 	if !assertOK {
 		return nil, errInvalidModule
 	}
