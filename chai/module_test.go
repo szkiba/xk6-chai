@@ -7,7 +7,7 @@ package chai
 import (
 	"testing"
 
-	"github.com/dop251/goja"
+	"github.com/grafana/sobek"
 	"github.com/stretchr/testify/assert"
 	"go.k6.io/k6/js/modulestest"
 )
@@ -17,7 +17,7 @@ func TestNewModuleInstance(t *testing.T) {
 
 	runtime := modulestest.NewRuntime(t)
 	vu := runtime.VU // nolint:varnamelen
-	noop := func(call goja.FunctionCall) goja.Value { return goja.Undefined() }
+	noop := func(call sobek.FunctionCall) sobek.Value { return sobek.Undefined() }
 
 	assert.NoError(t, vu.Runtime().Set("require", noop))
 	assert.NoError(t, vu.Runtime().Set("global", vu.Runtime().GlobalObject()))
@@ -65,7 +65,7 @@ func TestMustCompile(t *testing.T) {
 func TestExecute(t *testing.T) {
 	t.Parallel()
 
-	runtime := goja.New()
+	runtime := sobek.New()
 
 	prog, err := compile("throw new Error()", "test")
 
@@ -76,7 +76,7 @@ func TestExecute(t *testing.T) {
 
 	assert.Error(t, err)
 
-	prog, err = goja.Compile("test", "let a=1", true)
+	prog, err = sobek.Compile("test", "let a=1", true)
 
 	assert.NoError(t, err)
 	assert.NotNil(t, prog)
@@ -85,7 +85,7 @@ func TestExecute(t *testing.T) {
 
 	assert.Error(t, err)
 
-	prog, err = goja.Compile("test", "(module, exports) => {delete module['exports']}", true)
+	prog, err = sobek.Compile("test", "(module, exports) => {delete module['exports']}", true)
 
 	assert.NoError(t, err)
 	assert.NotNil(t, prog)
@@ -98,7 +98,7 @@ func TestExecute(t *testing.T) {
 func TestRequire(t *testing.T) {
 	t.Parallel()
 
-	runtime := goja.New()
+	runtime := sobek.New()
 
 	prog, err := compile("throw new Error()", "test")
 
@@ -113,7 +113,7 @@ func TestRequire(t *testing.T) {
 func TestMustRequire(t *testing.T) {
 	t.Parallel()
 
-	runtime := goja.New()
+	runtime := sobek.New()
 
 	prog, err := compile("throw new Error()", "test")
 
