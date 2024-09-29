@@ -29,6 +29,7 @@ jobs:
         id: build
         uses: szkiba/xk6bundler@v0
         with:
+          k6_version: "v0.52.0"
           with: github.com/szkiba/xk6-chai=/github/workspace
 
       - name: Create Release
